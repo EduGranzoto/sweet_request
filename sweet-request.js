@@ -1,59 +1,46 @@
-let sweet_request = (method, url, data, dataType = '') => {            
-    let info_ajax = {
-        headers: '', 
-        preload: '', 
-        complete: ''
-    }
+class sweet_request{
+    method
+    url
+    data 
+    dataType
+    header
+    preloadAttr 
+    completeAttr
 
-    let preload = (context) => {     
-        info_ajax.preload = context
-    }
-
-    let complete = (context = '') => {
-        info_ajax.complete = context
+    static informacoes_gerais(method, url, data, dataType = '') {
+        this.method = method
+        this.url    = url
+        this.data   = data
+        this.dataType = dataType
     }
     
-    let headers = (object) => {
-        info_ajax.headers = object
-    }
+    static headers(header) {
+        this.header = header
+    } 
 
-    let execute = async () => {
-        let info_data = {
-            status: '', 
-            msg: '', 
-            data: null
-        }
+    static preload(preload) {
+        this.preloadAttr = preload
+    } 
 
-        await $.ajax({
-            headers: info_ajax.headers,
-            type: method,
-            url: url,
-            data: data,
-            dataType: dataType,   
-            // async: false, 
+    static complete(complete) {
+        this.completeAttr = complete
+    } 
+
+    static execute() {
+        $.ajax({
+            headers: this.header,
+            url: this.url, 
+            data: this.data, 
+            dataType: this.dataType,
             beforeSend: function() {            
-                info_ajax.preload
+                this.preloadAttr
             },    
             success: function (response) {     
-                info_data.status = 'success',            
-                info_data.data = response
+                return response
             },
             complete: function() {
-                info_ajax.complete
-            },
-            error: function (request, status, error) {
-                info_data.status = status 
-                info_data.msg    = error
-            }
-        });
-        
-        return info_data
-    }  
-
-    return {
-        preload,
-        complete,
-        execute, 
-        headers        
+                this.completeAttr
+            }           
+        })
     }
 }
