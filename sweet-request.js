@@ -1,4 +1,4 @@
-class sweet_request{
+class Request{
     method
     url
     data 
@@ -6,6 +6,7 @@ class sweet_request{
     header
     preloadAttr 
     completeAttr
+    retorno
 
     static informacoes_gerais(method, url, data, dataType = '') {
         this.method = method
@@ -26,21 +27,24 @@ class sweet_request{
         this.completeAttr = complete
     } 
 
-    static execute() {
-        $.ajax({
+    static async execute() {
+        let retornar
+        await $.ajax({
             headers: this.header,
             url: this.url, 
+            type: this.method,
             data: this.data, 
             dataType: this.dataType,
             beforeSend: function() {            
                 this.preloadAttr
             },    
-            success: function (response) {     
-                return response
+            success: function (response) {                     
+                retornar = response
             },
             complete: function() {
                 this.completeAttr
             }           
-        })
+        }) 
+        return retornar
     }
 }
