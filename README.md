@@ -1,11 +1,21 @@
 # Sweet request
 <i class="devicon-javascript-plain"></i>
-Sweet request is a reposity that makes ajax request easier. With only one line you can have a ajax request  
+Sweet request is a reposity that makes ajax request easier. With few lines you can have a ajax request  
 
-### Params
-- Method = Ajax request method ( GET, POST, PUT and DELETE)
-- Url = Url that gonna ajax request
-- Data = Data that gonna sent 
-- Preload = Action that gonna execute in the preload 
-- Complete = Action that gonna execute in the after load request 
-- DataType = DataType request
+### Functions
+- informacoes_gerais: Basic information of the requisition. Accepts the following parameters:
+method, url, data, dataType
+
+- Method- Requisition method ( POST, GET, PATCH, PUT, DELETE ) 
+- Url - Request url
+- Data - Request data
+- DataType - Request datatype
+
+### Function preload() 
+Similar to jquery beforeSend function 
+
+### Function complete() 
+Similar to jquery complete function
+
+### Function execute() 
+Promise to execute the request
